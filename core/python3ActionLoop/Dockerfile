@@ -14,10 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 # build go proxy from source
 FROM golang:1.15 AS builder_source
-
-ARG GO_PROXY_GITHUB_USER=apache
+ARG GO_PROXY_GITHUB_USER=nimbella-corp
 ARG GO_PROXY_GITHUB_BRANCH=master
 RUN git clone --branch ${GO_PROXY_GITHUB_BRANCH} \
    https://github.com/${GO_PROXY_GITHUB_USER}/openwhisk-runtime-go /src ;\
@@ -36,7 +36,7 @@ RUN curl -sL \
 FROM python:3.7-buster
 
 # select the builder to use
-ARG GO_PROXY_BUILD_FROM=release
+ARG GO_PROXY_BUILD_FROM=source
 
 # Install common modules for python
 RUN pip install \
