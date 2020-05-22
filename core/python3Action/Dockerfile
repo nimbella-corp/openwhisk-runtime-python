@@ -28,9 +28,15 @@ RUN apk add --no-cache \
         linux-headers \
         openssl-dev
 
+# Copy nimbella version of the sfx library and nimbella sdk
+COPY signalfx-lambda-python /opt/signalfx_lambda
+COPY nimbella-sdk-python /opt/nimbella-sdk
+
 # Install common modules for python
 COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt \
+    /opt/signalfx_lambda \
+    /opt/nimbella-sdk
 
 ENV FLASK_PROXY_PORT 8080
 

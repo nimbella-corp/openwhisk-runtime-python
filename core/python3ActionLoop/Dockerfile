@@ -35,9 +35,15 @@ RUN curl -sL \
 FROM python:3.7-stretch
 ARG GO_PROXY_BUILD_FROM=source
 
+# Copy nimbella version of the sfx library and nimbella sdk
+COPY signalfx-lambda-python /opt/signalfx_lambda
+COPY nimbella-sdk-python /opt/nimbella-sdk
+
 # Install common modules for python
 COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt \
+    /opt/signalfx_lambda \
+    /opt/nimbella-sdk
 
 RUN mkdir -p /action
 WORKDIR /

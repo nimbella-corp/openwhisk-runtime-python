@@ -65,10 +65,16 @@ RUN curl -L https://downloads.rclone.org/rclone-current-linux-amd64.deb -o rclon
     && dpkg -i rclone.deb \
     && rm rclone.deb
 
+# Copy nimbella version of the sfx library and nimbella sdk
+COPY signalfx-lambda-python /opt/signalfx_lambda
+COPY nimbella-sdk-python /opt/nimbella-sdk
+
 COPY requirements.txt requirements.txt
-RUN pip3 install --upgrade pip six &&\
-    pip3 install --no-cache-dir -r requirements.txt &&\
-    ln -sf /usr/bin/python3 /usr/local/bin/python
+RUN pip3 install --upgrade pip six \
+    && pip3 install --no-cache-dir -r requirements.txt \
+       /opt/signalfx_lambda \
+       /opt/nimbella-sdk \
+    && ln -sf /usr/bin/python3 /usr/local/bin/python
 
 RUN mkdir -p /action
 WORKDIR /
