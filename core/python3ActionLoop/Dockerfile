@@ -45,6 +45,9 @@ COPY signalfx-lambda-python /opt/signalfx_lambda
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# install nim
+RUN curl https://apigcp.nimbella.io/downloads/nim/nim-install-linux.sh | bash
+
 RUN mkdir -p /action
 WORKDIR /
 COPY --from=builder_source /bin/proxy /bin/proxy_source
@@ -57,8 +60,6 @@ ADD lib/launcher.py /lib/launcher.py
 ENV OW_LOG_INIT_ERROR=1
 # the launcher must wait for an ack
 ENV OW_WAIT_FOR_ACK=1
-# using the runtime name to identify the execution environment
-ENV OW_EXECUTION_ENV=openwhisk/action-python-v3.7
 # compiler script
 ENV OW_COMPILER=/bin/compile
 
