@@ -42,6 +42,7 @@ RUN apk add --no-cache \
         bash \
         build-base \
         bzip2-dev \
+        curl \
         gcc \
         libc-dev \
         libxslt-dev \
@@ -69,7 +70,7 @@ RUN pip install --no-cache-dir --upgrade pip setuptools six \
         signalfx_lambda==0.2.1
 
 # install nim
-RUN curl https://apigcp.nimbella.io/downloads/nim/nim-install-linux.sh | bash
+RUN curl https://apigcp.nimbella.io/downloads/nim/nim-install-linux.sh | sed -e 's/--directory/-d/g'| bash
 
 RUN mkdir -p /action
 WORKDIR /
