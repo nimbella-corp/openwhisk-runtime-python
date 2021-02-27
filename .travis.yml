@@ -47,5 +47,5 @@ deploy:
   - provider: script
     script: "./tools/travis/publish.sh nimbella 3 nightly && ./tools/travis/publish.sh nimbella 3-ai nightly"
     on:
-      branch: dev-2020-10-10
+      branch: dev
       repo: nimbella-corp/openwhisk-runtime-python
