@@ -33,7 +33,7 @@ RUN curl -sL \
   && cd openwhisk-runtime-go-*/main\
   && GO111MODULE=on go build -o /bin/proxy
 
-FROM python:3.7-buster
+FROM python:3.9-buster
 
 # select the builder to use
 ARG GO_PROXY_BUILD_FROM=source
